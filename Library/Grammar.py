@@ -2,7 +2,7 @@ class Grammar:
     productions = []
 
     def __init__(self):
-        pass
+        self.productions = []
 
     def get_productions(self):
         return self.productions

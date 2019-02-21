@@ -16,7 +16,7 @@ class TokenIdentifier:
             return False
 
     def __str__(self):
-        return self.id+"-'"+self.regex+"'"
+        return self.id + "(" + self.regex + ")"
 
     def matches(self, string):
         return self.regex.match(string)
