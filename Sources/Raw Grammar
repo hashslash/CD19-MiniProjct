@@ -1,2 +1,4 @@
-S a S b
-S a b
+S A S B
+S a b null
+B b b
+A null c
