@@ -15,6 +15,12 @@ class TokenIdentifier:
         else:
             return False
 
+    def __hash__(self):
+        __hash = 0
+        for i in self.id:
+            __hash += ord(i)
+        return __hash
+
     def __str__(self):
         return self.id + "(" + self.regex + ")"
 

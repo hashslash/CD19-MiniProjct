@@ -28,11 +28,12 @@ code_file = open("Sources/Input String")
 code = str(code_file.read())
 parser = Parser(tid_s, grammar, code)
 
-
 print("-----------***parse table***--------------")
-print(str(parser.get_parse_table()))
+parse_table = parser.get_parse_table()
+for i in parse_table:
+    for j in parse_table[i]:
+        print(i, "| (", j, ") |", parse_table[i][j])
 print("--------------------------------------------\n\n")
-
 
 print("------------***Parse Tree***---------------")
 print(str(parser.get_parse_tree()))
