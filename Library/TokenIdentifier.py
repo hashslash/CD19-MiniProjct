@@ -10,9 +10,9 @@ class TokenIdentifier:
         self.regex = regex
 
     def __eq__(self, o: object) -> bool:
-        if o.id == self.id:
-            return True
-        else:
+        try:
+            return self.id == object.id
+        except:
             return False
 
     def __hash__(self):
@@ -22,7 +22,7 @@ class TokenIdentifier:
         return __hash
 
     def __str__(self):
-        return self.id + "(" + self.regex + ")"
+        return str(self.id)
 
     def matches(self, string):
         return self.regex.match(string)

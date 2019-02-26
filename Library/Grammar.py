@@ -51,6 +51,14 @@ class Grammar:
                 prods.append(i)
 
         for i in prods:
+            if i.rhs[0] == TokenIdentifier("null", "~"):
+                ter = self.follow(i.rhs[0])
+                for k in ter:
+                    try:
+                        first[k].append(i)
+                    except Exception:
+                        first[k] = [i]
+                continue
             if type(i.rhs[0]) is TokenIdentifier:
                 try:
                     first[i.rhs[0]].append(i)
@@ -66,4 +74,31 @@ class Grammar:
         return first
 
     def follow(self, variable):
-        return
+        prods = []
+        follow = {}
+        # get all the productions with the given variable in RHS
+        for i in self.productions:
+            for j in i.rhs:
+                if j == variable:
+                    prods.append(i)
+
+        for i in prods:
+            next_pos = 0
+            for j in range(len(i.rhs)):
+                if i.rhs[j] == variable:
+                    next_pos = j + 1
+                    break
+            try:
+                if type(i.rhs[next_pos]) is TokenIdentifier:
+                    try:
+                        follow[i.rhs[next_pos]].append(i)
+                    except Exception:
+                        follow[i.rhs[next_pos]] = [i]
+            except IndexError:
+                flw = self.follow(i.variable)
+                for j in flw:
+                    try:
+                        follow[j].append(flw[j])
+                    except Exception:
+                        follow[j] = [flw[j]]
+        return follow

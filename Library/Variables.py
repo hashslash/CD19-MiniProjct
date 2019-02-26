@@ -8,7 +8,10 @@ class Variable:
         return self.name
 
     def __eq__(self, other):
-        return self.name == other.name
+        try:
+            return self.name == other.name
+        except:
+            return False
 
     def __hash__(self):
         hash = 0
