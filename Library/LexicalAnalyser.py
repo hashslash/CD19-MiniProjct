@@ -2,7 +2,7 @@ from Library.Token import Token
 
 
 class LexicalAnalyser:
-    def __init__(self):
+    def __init__(self, tids, indata):
         pass
 
     def get_next_token(self):
