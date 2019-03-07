@@ -5,6 +5,7 @@ class Grammar:
     productions = []
     __variables = []
     __terminals = []
+    LL1 = True
 
     def __init__(self):
         self.productions = []
@@ -18,20 +19,10 @@ class Grammar:
             for i in self.productions:
                 self.__variables.append(i.variable)
             self.__variables = list(set(self.__variables))
-            # list all terminals
-            for i in self.productions:
-                for j in i.rhs:
-                    if type(j) == TokenIdentifier:
-                        self.__terminals.append(j)
-            self.__terminals = list(set(self.__terminals))
         return self.__variables
 
     def get_terminal_list(self):
         if len(self.__terminals) == 0:
-            # list all variables
-            for i in self.productions:
-                self.__variables.append(i.variable)
-            self.__variables = list(set(self.__variables))
             # list all terminals
             for i in self.productions:
                 for j in i.rhs:
@@ -43,62 +34,68 @@ class Grammar:
     def add_production(self, production):
         self.productions.append(production)
 
-    def first(self, variable):
-        prods = []
+    def first(self, x):
         first = {}
+        prods = []
         for i in self.productions:
-            if i.variable == variable:
+            if i.variable == x:
                 prods.append(i)
 
         for i in prods:
-            if i.rhs[0] == TokenIdentifier("null", "~"):
-                ter = self.follow(i.rhs[0])
-                for k in ter:
+            for j in i.rhs:
+                finish = 1
+                if type(j) is TokenIdentifier:
                     try:
-                        first[k].append(i)
-                    except Exception:
-                        first[k] = [i]
-                continue
-            if type(i.rhs[0]) is TokenIdentifier:
-                try:
-                    first[i.rhs[0]].append(i)
-                except Exception:
-                    first[i.rhs[0]] = [i]
-            else:
-                ter = self.first(i.rhs[0])
-                for k in ter:
-                    try:
-                        first[k].append(i)
-                    except Exception:
-                        first[k] = [i]
+                        first[j].append(i)
+                    except:
+                        first[j] = [i]
+                else:
+                    fir = self.first(j)
+                    for k in fir:
+                        try:
+                            first[k].append(i)
+                        except:
+                            first[k] = [i]
+                    for k in fir:
+                        if k.id == "null":
+                            finish = 0
+                if finish == 1:
+                    break
         return first
 
-    def follow(self, variable):
+    def follow(self, x):
+        follow = []
+
         prods = []
-        follow = {}
-        # get all the productions with the given variable in RHS
         for i in self.productions:
             for j in i.rhs:
-                if j == variable:
+                if j == x:
                     prods.append(i)
 
         for i in prods:
-            next_pos = 0
             for j in range(len(i.rhs)):
-                if i.rhs[j] == variable:
-                    next_pos = j + 1
-                    break
-            try:
-                if type(i.rhs[next_pos]) is TokenIdentifier:
-                    try:
-                        follow[i.rhs[next_pos]].append(i)
-                    except Exception:
-                        follow[i.rhs[next_pos]] = [i]
-            except IndexError:
-                flw = self.follow(i.variable)
-                for j in flw:
-                    try:
-                        follow[j].append(flw[j])
-                    except Exception:
-                        follow[j] = [flw[j]]
+                if i.rhs[j] == x:
+                    finish = 1
+                    off = 1
+                    while True:
+                        if len(i.rhs) == j + off:
+                            if i.variable != x:
+                                follow += self.follow(i.variable)
+                                finish = 1
+                        else:
+                            if type(i.rhs[j + off]) is TokenIdentifier:
+                                follow.append(i.rhs[j + off])
+                                finish = 1
+                            else:
+                                fir = self.first(i.rhs[j + off])
+                                for k in fir:
+                                    if k.id == "null":
+                                        off += 1
+                                        finish = 0
+                                    else:
+                                        follow.append(k)
+                                        finish = 1
+                        if finish == 1:
+                            break
+        follow = list(set(follow))
         return follow
