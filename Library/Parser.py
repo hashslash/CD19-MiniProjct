@@ -1,4 +1,5 @@
 from Library.LexicalAnalyser import LexicalAnalyser
+from Library.TokenIdentifier import TokenIdentifier
 from Library.Variables import Variable
 from Library.util import Stack
 from Library.Token import Token
@@ -13,7 +14,7 @@ class Parser:
         self.tid_s = tid_s
         self.grammar = grammar
         self.__generate_parse_table()
-        self.__parse(data)
+        self.__parse(tid_s, data)
 
     def __generate_parse_table(self):
         variables = self.grammar.get_variable_list()
@@ -57,6 +58,7 @@ class Parser:
                 if type(top_of_stack) is Token and top_of_stack.id == "null":
                     continue
                 next_token = lex.get_next_token()
+                print("token-", next_token.lexeme)
                 if next_token.id == "eoc":
                     print("Error Occured ... Extra tokens Found")
                     return
@@ -68,6 +70,10 @@ class Parser:
                         __result = False
                         return
                 else:
+                    print(type(top_of_stack), next_token, next_token.__hash__())
+                    for i in self.parse_table[top_of_stack][TokenIdentifier("a", "a")]:
+                        print(i.__hash__())
+                    exit(0)
                     try:
                         prod = self.parse_table[top_of_stack][next_token][0]
                     except:

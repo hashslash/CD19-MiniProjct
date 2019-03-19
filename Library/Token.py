@@ -11,3 +11,12 @@ class Token:
             return True
         else:
             return False
+
+    def __str__(self):
+        return self.lexeme
+
+    def __hash__(self):
+        __hash = 0
+        for i in self.id:
+            __hash += ord(i)
+        return __hash

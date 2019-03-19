@@ -1,3 +1,5 @@
+from Library.LexicalAnalyser import LexicalAnalyser
+from Library.TokenIdentifier import TokenIdentifier
 from Library.TokenIdentifiersGenerator import TokenIdentifiersGenerator
 from Library.GrammerGenerator import GrammarGenerator
 from Library.Parser import Parser
@@ -41,7 +43,7 @@ for i in terminals:
 print()
 print("-" * (len(terminals) - 1) * 44)
 for i in parse_table:
-    if i.name != "St":
+    if i.name != "3":
         print(str(i).center(10), end="|")
         for j in terminals:
             if j.id != 'null':
@@ -61,3 +63,18 @@ if grammar.LL1:
     pass
 else:
     print("Grammer is not LL(1) cannot parse")
+'''
+lex = LexicalAnalyser(
+    [TokenIdentifier("flt", "float"),
+     TokenIdentifier("int", "int"),
+     TokenIdentifier("id", "[a-zA-Z][a-zA-Z0-9_]*")
+     ],
+    "int a,b,ab,ab_cd,ab09,a;float a,b;")
+for i in range(10):
+    try:
+        # print("main -", lex.get_next_token().id, lex.get_next_token().lexeme)
+        lex.get_next_token()
+        pass
+    except:
+        print(None)
+'''

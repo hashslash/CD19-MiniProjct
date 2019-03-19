@@ -1,7 +1,7 @@
 a a
 hat ^
-obrac (
-cbrac )
+obrac \(
+cbrac \)
 null ~
 eoc $
 c ,

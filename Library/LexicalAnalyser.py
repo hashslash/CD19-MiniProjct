@@ -2,48 +2,57 @@ from Library.Token import Token
 
 
 class LexicalAnalyser:
+    pointer = 0
+
     def __init__(self, tids, indata):
-        pass
+        self.__data = indata
+        self.__tid_s = tids
 
     def get_next_token(self):
-        pass
+        # print("p->", self.pointer)
+        if self.pointer >= len(self.__data):
+            return None
+        matched = False
+        tid = None
+        ln = 1
+        while True:
+            # print("len->", ln)
+            if not matched:
+                for i in self.__tid_s:
+                    # print("check-", self.__data[self.pointer:self.pointer + ln], i)
+                    if i.matches(self.__data[self.pointer:self.pointer + ln]):
+                        tid = i
+                        matched = True
+                        break
+            else:
+                flag = False
+                # print("match check-", self.__data[self.pointer:self.pointer + ln])
+                for i in self.__tid_s:
+                    if i.matches(self.__data[self.pointer:self.pointer + ln]):
+                        tid = i
+                        flag = True
+                        break
+                if not flag:
+                    tt = Token(tid.id, self.__data[self.pointer:self.pointer + ln - 1])
+                    self.pointer = self.pointer + ln - 1
+                    #print("matched 1", tt.id, tt.lexeme)
+                    return tt
 
-
-'''
-mydict = {
-    'operators':{
-        'arithmetic':('+','-','/','*','='),
-        'assignment':'=',
-        'inc_dic':('++','--')
-    },
-    'comments':{
-        'single_line':'//',
-        'multipleLineStart':'/*',
-        'multipleLineEnd':'*/'
-    },
-    'header':{
-        'Standard Input Output':'stdio.h',
-        'Standard Library':'stdlib.h'
-    },
-    'delimiter':{
-        'semicolon':';'
-    },
-    'blocks':{
-        'curly_open_brace':'{',
-        'curly_closed_brace':'}',
-        'open_paranthesis':'(',
-        'closed_paranthesis':')'
-    },
-    'built_in_functions':{
-        'Print':'printf',
-        'Scan':'scanf',
-        'Main_function':'main'
-    }
-}
-def istoken(lexeme):
-    for name in mydict.keys():
-        for token in mydict[name]:
-            for value in mydict[name][token]:
-                if (value == lexeme):
-                    print(token)
-'''
+            if self.pointer + ln <= len(self.__data):
+                ln += 1
+                continue
+            else:
+                if matched:
+                    tt = Token(tid.id, self.__data[self.pointer:self.pointer + ln - 1])
+                    self.pointer = self.pointer + ln - 1
+                    #print("matched 2", tt.id, tt.lexeme)
+                    return tt
+                else:
+                    if self.pointer != len(self.__data) - 1:
+                        self.pointer += 1
+                        #print("Skipped")
+                        return self.get_next_token()
+                    else:
+                        self.pointer += 1
+                        print("Error at ", self.__data[self.pointer])
+                        exit(1)

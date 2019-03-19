@@ -1,4 +1,6 @@
-import re
+from re import compile, match
+
+from _pytest.compat import NoneType
 
 
 class TokenIdentifier:
@@ -25,4 +27,12 @@ class TokenIdentifier:
         return str(self.id)
 
     def matches(self, string):
-        return self.regex.match(string)
+        matcch = match(self.regex, string)
+        try:
+            if matcch.group() == string:
+                # print(matcch.group(), string)
+                return True
+            else:
+                return False
+        except:
+            return False
