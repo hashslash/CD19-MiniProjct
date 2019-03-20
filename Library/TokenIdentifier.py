@@ -26,6 +26,9 @@ class TokenIdentifier:
     def __str__(self):
         return str(self.id)
 
+    def __cmp__(self, other):
+        return True
+
     def matches(self, string):
         matcch = match(self.regex, string)
         try:

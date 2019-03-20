@@ -25,10 +25,9 @@ for i in grammar.get_productions():
 print("--------------------------------------------\n\n")
 
 # Parsing
-
 code_file = open("Sources/Input String")
 code = str(code_file.read())
-parser = Parser(tid_s, grammar, code)
+parser = Parser(tid_s, grammar)
 
 print("-----------***parse table***--------------")
 
@@ -60,21 +59,28 @@ for i in parse_table:
 print("-" * (len(terminals) - 1) * 44)
 
 if grammar.LL1:
-    pass
+    print("Grammer is LL1")
 else:
     print("Grammer is not LL(1) cannot parse")
+    exit(1)
+
+parser.parse(code)
 '''
 lex = LexicalAnalyser(
-    [TokenIdentifier("flt", "float"),
-     TokenIdentifier("int", "int"),
-     TokenIdentifier("id", "[a-zA-Z][a-zA-Z0-9_]*")
-     ],
-    "int a,b,ab,ab_cd,ab09,a;float a,b;")
-for i in range(10):
-    try:
-        # print("main -", lex.get_next_token().id, lex.get_next_token().lexeme)
-        lex.get_next_token()
-        pass
-    except:
-        print(None)
+[TokenIdentifier("flt", "float"),
+ TokenIdentifier("int", "int"),
+ TokenIdentifier("id", "[a-zA-Z][a-zA-Z0-9_]*"),
+ TokenIdentifier("comma", ","),
+ TokenIdentifier("semicol", ";"),
+ TokenIdentifier("ws", "[ ]"),
+ ],
+"int a,b,ab,ab_cd,ab09,a;float a,b;")
+for i in range(25):
+try:
+    token = lex.get_next_token()
+    print("main -", token.id, token.lexeme)
+
+    pass
+except:
+    print(None)
 '''

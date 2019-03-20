@@ -35,7 +35,7 @@ class LexicalAnalyser:
                 if not flag:
                     tt = Token(tid.id, self.__data[self.pointer:self.pointer + ln - 1])
                     self.pointer = self.pointer + ln - 1
-                    #print("matched 1", tt.id, tt.lexeme)
+                    # print("matched 1", tt.id, tt.lexeme)
                     return tt
 
             if self.pointer + ln <= len(self.__data):
@@ -45,14 +45,14 @@ class LexicalAnalyser:
                 if matched:
                     tt = Token(tid.id, self.__data[self.pointer:self.pointer + ln - 1])
                     self.pointer = self.pointer + ln - 1
-                    #print("matched 2", tt.id, tt.lexeme)
+                    # print("matched 2", tt.id, tt.lexeme)
                     return tt
                 else:
                     if self.pointer != len(self.__data) - 1:
                         self.pointer += 1
-                        #print("Skipped")
+                        print("\nWarning:Panic Mode:Skipped Token\'"+ self.__data[self.pointer - 1] + "\'")
                         return self.get_next_token()
                     else:
                         self.pointer += 1
-                        print("Error at ", self.__data[self.pointer])
+                        print("Error out of chars")
                         exit(1)

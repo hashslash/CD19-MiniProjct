@@ -4,6 +4,12 @@ class Stack:
     def __init__(self):
         pass
 
+    def __str__(self):
+        s = ""
+        for i in self.__stack:
+            s += str(i) + " "
+        return s
+
     def push(self, data):
         self.__stack.append(data)
 
