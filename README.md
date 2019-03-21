@@ -2,25 +2,25 @@
 
 A LL(1) Parser for a code snippet already
 
-###About Lex Tool:
+### About Lex Tool:
 The default tokens are 'eoc' and 'null' which all cases should include it can be used for any kind of regular languages
 
-####Usage:
+## Usage:
 ``` python
 lex = LexicalAnalyser(token_identifiers,code_data)
 lex.get_next_token()
 ```
-###About Parser:
+### About Parser:
 The default grammer are St=>S eoc (Acceptance Grammer) which all cases should include it can be used for any kind of Context-free Grammars
 
-####Usage:
+#### Usage:
 ``` python
 parser = parser(token_identifiers,grammar)
 parser.parse(code_data)
 ```
 
 
-##example:
+## example:
 
 Grammar
 ```
