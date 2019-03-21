@@ -2,7 +2,6 @@ from Library.LexicalAnalyser import LexicalAnalyser
 from Library.TokenIdentifier import TokenIdentifier
 from Library.Variables import Variable
 from Library.util import Stack
-from Library.Token import Token
 
 
 class Parser:
@@ -92,24 +91,29 @@ class Parser:
         lex = LexicalAnalyser(token_id, data)
 
         while True:
+            print()
+            print(str(stack).center(50, " "), end="|")
             if stack.is_empty():
                 next_token = lex.get_next_token()
                 if next_token is None:
                     self.__result = True
-                    print("Parsing Successfull\nValid")
+                    print("\nParsing Successfull\nValid")
                     return
                 else:
-                    print("Error Occured at >>", next_token.lexeme)
+                    print("\nError Occured at >>", next_token.lexeme)
             else:
                 # print("stack-----", str(stack))
                 top_of_stack = stack.pop()
                 # print("top===", top_of_stack)
                 # check for epsilon
                 if type(top_of_stack) is TokenIdentifier and top_of_stack.id == "null":
+                    print("null".center(50), end="|")
+                    print(str("match null").center(50), end="|")
                     continue
                 # next token
                 if next_token is None:
                     next_token = lex.get_next_token()
+                print(str(next_token).center(50, " "), end="|")
                 # print("token-", next_token.lexeme)
                 # check if input is at end
                 if next_token is None or next_token.id == "eoc" and top_of_stack.id != "eoc":
@@ -118,9 +122,10 @@ class Parser:
                 if type(top_of_stack) is TokenIdentifier:
                     if top_of_stack.id == next_token.id:
                         next_token = None
-                        # print("match -- ", top_of_stack)
+                        print(str("match " + str(top_of_stack)).center(50),end="|")
                     else:
-                        print("Expected", top_of_stack.id, "Found", next_token.id)
+                        print("\nExpected", top_of_stack.id, "Found", next_token.id)
+                        print()
                         __result = False
                         return
                 else:
@@ -131,6 +136,7 @@ class Parser:
                                 for j in self.parse_table[i]:
                                     if j.id == next_token.id:
                                         prod = self.parse_table[i][j][0]
+                                        print(str(prod).center(50, " "), end="|")
                                         # print(prod)
                         if prod is None:
                             continue
@@ -141,6 +147,12 @@ class Parser:
                         stack.push(i)
 
     def parse(self, data):
+        print("Parsing...")
+        print(str("stack").center(50, " "), end="|")
+        print(str("Input").center(50, " "), end="|")
+        print(str("Action").center(50, " "), end="|")
+        print()
+        print("-"*152)
         self.__parse(self.tid_s, data)
 
     def get_result(self):
