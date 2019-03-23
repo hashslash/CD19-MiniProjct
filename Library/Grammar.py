@@ -94,7 +94,6 @@ class Grammar:
                                         finish = 0
                                     else:
                                         follow.append(k)
-                                        finish = 1
                         if finish == 1:
                             break
         follow = list(set(follow))

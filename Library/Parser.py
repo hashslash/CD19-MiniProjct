@@ -97,6 +97,8 @@ class Parser:
                 next_token = lex.get_next_token()
                 if next_token is None:
                     self.__result = True
+                    print()
+                    print("-" * 152)
                     print("\nParsing Successfull\nValid")
                     return
                 else:
@@ -116,7 +118,7 @@ class Parser:
                 print(str(next_token).center(50, " "), end="|")
                 # print("token-", next_token.lexeme)
                 # check if input is at end
-                if next_token is None or next_token.id == "eoc" and top_of_stack.id != "eoc":
+                if next_token is None or next_token.id == "eoc" and type(top_of_stack) is TokenIdentifier and top_of_stack.id != "eoc":
                     print("Error")
                     return
                 if type(top_of_stack) is TokenIdentifier:
@@ -148,6 +150,7 @@ class Parser:
 
     def parse(self, data):
         print("Parsing...")
+        print("-" * 152)
         print(str("stack").center(50, " "), end="|")
         print(str("Input").center(50, " "), end="|")
         print(str("Action").center(50, " "), end="|")
