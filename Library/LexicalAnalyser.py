@@ -3,6 +3,7 @@ from Library.Token import Token
 
 class LexicalAnalyser:
     pointer = 0
+    warn = []
 
     def __init__(self, tids, indata):
         self.__data = indata
@@ -50,9 +51,21 @@ class LexicalAnalyser:
                 else:
                     if self.pointer != len(self.__data) - 1:
                         self.pointer += 1
-                        print("\nWarning:Panic Mode:Skipped Token\'"+ self.__data[self.pointer - 1] + "\'")
+                        self.warn.append([self.__data[self.pointer - 1], self.pointer])
                         return self.get_next_token()
                     else:
                         self.pointer += 1
                         print("Error out of chars")
                         exit(1)
+
+    def warnign(self):
+        print("\n\nLexical Warnings\n")
+        for i in self.warn:
+            print("Error in line", self.line(i[1]), "char", i[0], "excluded")
+
+    def line(self, param):
+        line = 1
+        for i in range(param):
+            if self.__data[i] == "\n":
+                line += 1
+        return line

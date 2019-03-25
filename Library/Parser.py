@@ -84,7 +84,7 @@ class Parser:
                 children.append(self.__tree(i, lexer))
         return tree
 
-    def __parse(self, token_id, data):
+    def __parse(self, lex):
         '''
 
         lexer = LexicalAnalyser(token_id, data)
@@ -94,7 +94,6 @@ class Parser:
         top_of_stack = next_token = None
         stack = Stack()
         stack.push(Variable("St"))
-        lex = LexicalAnalyser(token_id, data)
 
         while True:
             print()
@@ -173,7 +172,9 @@ class Parser:
         print(str("Action").center(50, " "), end="|")
         print()
         print("-" * 152)
-        self.__parse(self.tid_s, data)
+        lex = LexicalAnalyser(self.tid_s, data)
+        self.__parse(lex)
+        lex.warnign()
 
     def get_result(self):
         return self.__result
