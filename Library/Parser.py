@@ -150,7 +150,8 @@ class Parser:
                                         break
                                         # print(prod)
                         if prod is None:
-                            continue
+                            print("\nCannot continue Unpredicted token:", next_token)
+                            return
                         if prod == "sync":
                             if len(stack) == 1:
                                 stack.push(top_of_stack)

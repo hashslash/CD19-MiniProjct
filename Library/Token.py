@@ -13,7 +13,7 @@ class Token:
             return False
 
     def __str__(self):
-        return self.lexeme
+        return self.id
 
     def __hash__(self):
         __hash = 0
