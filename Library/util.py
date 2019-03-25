@@ -10,6 +10,9 @@ class Stack:
             s += str(i) + " "
         return s
 
+    def __len__(self):
+        return len(self.__stack)
+
     def push(self, data):
         self.__stack.append(data)
 

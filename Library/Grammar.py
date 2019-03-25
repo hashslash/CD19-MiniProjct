@@ -35,6 +35,16 @@ class Grammar:
         self.productions.append(production)
 
     def first(self, x):
+        # for first symbol push to initial symbol
+        if x.name == "St":
+            fir = {}
+            prod = None
+            for i in self.productions:
+                if i.variable.name == "St":
+                    prod = i
+            for i in self.get_terminal_list():
+                fir[i] = [prod]
+            return fir
         first = {}
         prods = []
         for i in self.productions:

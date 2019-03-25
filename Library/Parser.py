@@ -110,7 +110,7 @@ class Parser:
                 else:
                     print("\nError Occured at >>", next_token.lexeme)
                     print("Parsing Failed")
-                    exit(0)
+                    return
             else:
                 # print("stack-----", str(stack))
                 top_of_stack = stack.pop()
@@ -148,8 +148,16 @@ class Parser:
                                     if j.id == next_token.id:
                                         prod = self.parse_table[i][j][0]
                                         print(str(prod).center(50, " "), end="|")
+                                        break
                                         # print(prod)
                         if prod is None:
+                            continue
+                        if prod == "sync":
+                            if len(stack) == 1:
+                                stack.push(top_of_stack)
+                                next_token = None
+                            else:
+                                pass
                             continue
                     except:
                         print("Error at >", next_token.lexeme)
