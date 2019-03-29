@@ -35,15 +35,15 @@ parse_table = parser.get_parse_table()
 terminals = grammar.get_terminal_list()
 
 print("-" * (len(terminals) - 1) * 44)
-print("variables".center(10), end="|")
+print("variables".center(20), end="|")
 for i in terminals:
     if i.id != 'null':
-        print("|", str(i).center(39), end="|")
+        print("|", str(i).center(49), end="|")
 print()
 print("-" * (len(terminals) - 1) * 44)
 for i in parse_table:
     if i.name != "3":
-        print(str(i).center(10), end="|")
+        print(str(i).center(20), end="|")
         for j in terminals:
             if j.id != 'null':
                 print("|", end="")
@@ -51,12 +51,12 @@ for i in parse_table:
                     pr = ""
                     for k in parse_table[i][j]:
                         pr += str(k) + ","
-                    print(pr[:-1].center(40), end="|")
+                    print(pr[:-1].center(50), end="|")
                 except Exception:
-                    print("".center(40), end="|")
+                    print("".center(50), end="|")
         print()
 
-print("-" * (len(terminals) - 1) * 44)
+print("-" * (len(terminals) - 1) * 50)
 
 if grammar.LL1:
     print("Grammer is LL1")
@@ -65,6 +65,7 @@ else:
     exit(1)
 
 parser.parse(code)
+
 '''
 lex = LexicalAnalyser(
 [TokenIdentifier("flt", "float"),

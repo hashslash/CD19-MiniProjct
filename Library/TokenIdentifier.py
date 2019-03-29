@@ -1,6 +1,5 @@
 from re import compile, match
 
-from _pytest.compat import NoneType
 
 
 class TokenIdentifier:
@@ -32,8 +31,8 @@ class TokenIdentifier:
     def matches(self, string):
         matcch = match(self.regex, string)
         try:
+            #print("mactch group " + str(matcch.group()), string)
             if matcch.group() == string:
-                # print(matcch.group(), string)
                 return True
             else:
                 return False

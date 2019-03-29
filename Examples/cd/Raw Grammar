@@ -1,0 +1,32 @@
+St prog eoc
+prog DTty main ob cb begin code end
+DTty int
+DTty char
+DTty float
+DTty void
+code retST code
+code nretST code
+code null
+nretST decl
+nretST ifcode
+nretST whilecode
+nretST forcode
+nretST return retST semicol
+retST funcall
+retST str
+retST exp
+eq id equ retST
+ifcode if ob exp cb then code else code end
+whilecode while ob exp cb begin code end
+forcode for ob id equ exp to exp cb begin code end
+decl DTty id idlist semicol
+idlist comma id idlist
+idlist null
+funcall id ob retST arglist cb semicol
+arglist comma retST arglist
+arglist null
+exp t op exp
+exp t
+t ob exp cb
+t id
+t num

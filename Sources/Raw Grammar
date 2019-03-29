@@ -1,10 +1,31 @@
-St e eoc
-e t e_
-e_ plus t e_
-e_ null
-t f t_
-t_ null
-t_ star f t_
-f obrac e cbrac
-f id
-f num
+St prog eoc
+prog datatype main ob cb begin code end
+code eq code
+code dec code
+code whileloop code
+code forinloop code
+code ifst code
+code null
+whileloop while ob R cb begin code end
+dec datatype id init varlist sc
+varlist comma id init varlist
+varlist null
+init null
+init equ num
+eq id equ E sc
+E T E'
+E' op T E'
+E' null
+T ob E cb
+T id
+T num
+R F R'
+R' rop F R'
+R' null
+F ob R cb
+F id
+F num
+forinloop for ob id equ num to num cb begin code end
+ifst if ob R cb begin code el end
+el else code
+el null

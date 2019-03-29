@@ -35,6 +35,7 @@ class Grammar:
         self.productions.append(production)
 
     def first(self, x):
+        #print("first - " + str(x))
         # for first symbol push to initial symbol
         if x.name == "St":
             fir = {}
@@ -74,6 +75,7 @@ class Grammar:
         return first
 
     def follow(self, x):
+        #print("Follow - " + str(x))
         follow = []
 
         prods = []

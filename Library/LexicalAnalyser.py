@@ -59,9 +59,10 @@ class LexicalAnalyser:
                         exit(1)
 
     def warnign(self):
-        print("\n\nLexical Warnings\n")
+        print("\n\nLexical Warnings:\n")
         for i in self.warn:
-            print("Error in line", self.line(i[1]), "char", "\\n" if i[0] == '\n' else i[0], "excluded")
+            if i[0] != ' ' and i[0] != "\n":
+                print("Error in line", self.line(i[1]), "char", i[0], "excluded")
 
     def line(self, param):
         line = 1

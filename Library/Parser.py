@@ -36,7 +36,10 @@ class Parser:
                             self.parse_table[i][k] = fir[j]
             if sync:
                 for j in self.grammar.follow(i):
-                    self.parse_table[i][j] = ["sync"]
+                    try:
+                        self.parse_table[i][j]
+                    except:
+                        self.parse_table[i][j] = ["sync"]
 
         for i in self.parse_table:
             for j in self.parse_table[i]:
@@ -97,13 +100,13 @@ class Parser:
 
         while True:
             print()
-            print(str(stack).center(50, " "), end="|")
+            print(str(stack).center(100, " "), end="|")
             if stack.is_empty():
                 next_token = lex.get_next_token()
                 if next_token is None:
                     self.__result = True
                     print()
-                    print("-" * 152)
+                    print("-" * 202)
                     print("\nParsing Successfull\nValid")
                     return
                 else:
@@ -150,7 +153,7 @@ class Parser:
                                         break
                                         # print(prod)
                         if prod is None:
-                            print("\nCannot continue Unpredicted token:", next_token)
+                            print("\nCannot continue Unpredicted token:", next_token, next_token.lexeme)
                             return
                         if prod == "sync":
                             if len(stack) == 1:
@@ -167,12 +170,12 @@ class Parser:
 
     def parse(self, data):
         print("Parsing...")
-        print("-" * 152)
-        print(str("stack").center(50, " "), end="|")
+        print("-" * 202)
+        print(str("stack").center(100, " "), end="|")
         print(str("Input").center(50, " "), end="|")
         print(str("Action").center(50, " "), end="|")
         print()
-        print("-" * 152)
+        print("-" * 202)
         lex = LexicalAnalyser(self.tid_s, data)
         self.__parse(lex)
         lex.warnign()

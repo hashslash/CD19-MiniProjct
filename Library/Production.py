@@ -6,7 +6,7 @@ class Production:
         self.rhs = rhs
 
     def __str__(self):
-        prod = str(self.variable) + " =>> "
+        prod = str(self.variable) + " > "
         for i in self.rhs:
             prod += str(i) + " "
         return prod
