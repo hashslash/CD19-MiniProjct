@@ -1,2 +1,2 @@
-**Lex Panic mode
-Parser Panic mode**
+Clone the repo and execute main.py
+Python 3
