@@ -34,13 +34,13 @@ print("-----------***parse table***--------------")
 parse_table = parser.get_parse_table()
 terminals = grammar.get_terminal_list()
 
-print("-" * (len(terminals) - 1) * 44)
+print("-" * (len(terminals) - 1) * 60)
 print("variables".center(20), end="|")
 for i in terminals:
     if i.id != 'null':
-        print("|", str(i).center(49), end="|")
+        print("|", str(i).center(54), end="|")
 print()
-print("-" * (len(terminals) - 1) * 44)
+print("-" * (len(terminals) - 1) * 60)
 for i in parse_table:
     if i.name != "3":
         print(str(i).center(20), end="|")
@@ -51,12 +51,12 @@ for i in parse_table:
                     pr = ""
                     for k in parse_table[i][j]:
                         pr += str(k) + ","
-                    print(pr[:-1].center(50), end="|")
+                    print(pr[:-1].center(55), end="|")
                 except Exception:
-                    print("".center(50), end="|")
+                    print("".center(55), end="|")
         print()
 
-print("-" * (len(terminals) - 1) * 50)
+print("-" * (len(terminals) - 1) * 60)
 
 if grammar.LL1:
     print("Grammer is LL1")
