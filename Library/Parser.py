@@ -100,7 +100,7 @@ class Parser:
 
         while True:
             print()
-            print(str(stack).center(100, " "), end="|")
+            print(str(stack).center(50, " "), end="|")
             if stack.is_empty():
                 next_token = lex.get_next_token()
                 if next_token is None:
@@ -116,16 +116,15 @@ class Parser:
             else:
                 # print("stack-----", str(stack))
                 top_of_stack = stack.pop()
-                # print("top===", top_of_stack)
                 # check for epsilon
                 if type(top_of_stack) is TokenIdentifier and top_of_stack.id == "null":
-                    print("null".center(50), end="|")
+                    print("null".center(30), end="|")
                     print(str("match null").center(50), end="|")
                     continue
                 # next token
                 if next_token is None:
                     next_token = lex.get_next_token()
-                print(str(next_token).center(50, " "), end="|")
+                print(str(next_token).center(30, " "), end="|")
                 # print("token-", next_token.lexeme)
                 # check if input is at end
                 if next_token is None or next_token.id == "eoc" and type(
@@ -171,8 +170,8 @@ class Parser:
     def parse(self, data):
         print("Parsing...")
         print("-" * 202)
-        print(str("stack").center(100, " "), end="|")
-        print(str("Input").center(50, " "), end="|")
+        print(str("stack").center(50, " "), end="|")
+        print(str("Input").center(30, " "), end="|")
         print(str("Action").center(50, " "), end="|")
         print()
         print("-" * 202)

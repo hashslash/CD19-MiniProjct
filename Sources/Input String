@@ -1,18 +1,9 @@
 int main()
 begin
-    int n, re = 0, rem;
+    int a, re = 10 ;
     while( a < b )
     begin
         int c = 0 ;
         a = b - c ;
-    end
-    for ( i = 1 to 10 )
-    begin
-        if ( i > 5 )
-        begin
-            a = a + 1 ;
-        else
-            a = a - 1 ;
-        end
     end
 end$
